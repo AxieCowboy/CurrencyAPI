@@ -1,21 +1,19 @@
-export default class UI {
+class UI {
     static displayRates(rates) {
-        const ratesContainer = document.getElementById('rates');
-        ratesContainer.innerHTML = "";
-
-        if (!rates) {
-            ratesContainer.innerHTML = "<p>Failed to load data.</p>";
+        const ratesContainer = document.getElementById("rates-container");
+        if (!ratesContainer) {
+            console.error("Element #rates-container not found!");
             return;
         }
 
-        const currencies = ['CAD', 'EUR', 'GBP', 'JPY'];
-        currencies.forEach(currencies => {
-            const rate = rates[currency];
-            if (rate) {
-                const rateElement = document.createElement('p');
-                rateElement.textContent = `1 USD = ${rate} ${currency}`;
-                ratesContainer.appendChild(rateElement);
-            }
+        ratesContainer.innerHTML = ""; // Clear previous results
+
+        Object.entries(rates).forEach(([currencyCode, rate]) => {
+            const rateElement = document.createElement("p");
+            rateElement.textContent = `1 USD = ${rate} ${currencyCode}`;
+            ratesContainer.appendChild(rateElement);
         });
     }
 }
+
+export default UI;
